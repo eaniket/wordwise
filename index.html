@@ -3,48 +3,68 @@
 <head>
   <title>WordWise</title>
   <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<!--   <div class="tile">Tile 1</div>
-  <div class="tile">Tile 2</div>
-  <div class="tile">Tile 3</div>
-  <div class="tile">Tile 4</div>
-  <div class="tile">Tile 5</div>
-  <div class="tile">Tile 6</div> -->
+  <div class="page-wrapper">
+    <nav class="navbar">
+      <div class="logo"><a href="#">Logo</a></div>
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Portfolio</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="menu-toggle">&#9776;</div>
+    </nav>
 
-  <nav class="navbar">
-    <div class="logo"><a href="#">Logo</a></div>
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Portfolio</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-    <div class="menu-toggle">&#9776;</div>
-  </nav>
 
-  <div class="content">
-    <h1>Welcome to your brain-friendly guide</h1>
-    <p class="subtitle">GRE Vocabulary story collection</p>
-    
-    <div class="cta-line">
-      <p>Embark on a Journey: <a href="#" class="cta-link" id="explore">Explore</a> Captivating Stories or <a href="#" class="cta-link">Craft</a> Your Own Adventure!</p>
+    <!-- <div class="main" id="section1">
+      <h2>Section 1</h2>
+      <p>Click on the link to see the "smooth" scrolling effect.</p>
+      <a href="#section2">Click Me to Smooth Scroll to Section 2 Below</a>
+      <p>Note: Remove the scroll-behavior property to remove smooth scrolling.</p>
     </div>
 
+    <div class="main" id="section2">
+      <h2>Section 2</h2>
+      <a href="#section1">Click Me to Smooth Scroll to Section 1 Above</a>
+    </div>
+     -->
 
+    <div class="main content" id="main-content">
+      <h1>Welcome to your brain-friendly guide</h1>
+      <p class="subtitle">GRE Vocabulary story collection</p>
+      
+      <div class="cta-line">
+        <p>Embark on a Journey: <strong>Explore</strong> Captivating Stories or <strong>Craft</strong> Your Own Adventure!</p>
+        <a href="#explore-content">Explore stories</a>
+        <div class="cta-button-row">
+          <button type="button" class="btn btn-primary" id="explore-button">Explore stories</button>
+          <button type="button" class="btn btn-outline-secondary" id="create-button">Create a story</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="main explore-content" id="explore-content">
+      <div class="tile"><a href ="#main-content">Tile 1</a></div>
+      <div class="tile">Tile 2</div>
+      <div class="tile">Tile 3</div>
+      <div class="tile">Tile 4</div>
+      <div class="tile">Tile 5</div>
+      <div class="tile">Tile 6</div>
+    </div>
+
+    <footer>
+      <ul class="social-links">
+        <li><a href="#"><img src="facebook.png" alt="Facebook"></a></li>
+        <li><a href="#"><img src="twitter.png" alt="Twitter"></a></li>
+        <li><a href="#"><img src="instagram.png" alt="Instagram"></a></li>
+      </ul>
+    </footer>
   </div>
 
-  <footer>
-    <ul class="social-links">
-      <li><a href="#"><img src="facebook.png" alt="Facebook"></a></li>
-      <li><a href="#"><img src="twitter.png" alt="Twitter"></a></li>
-      <li><a href="#"><img src="instagram.png" alt="Instagram"></a></li>
-    </ul>
-  </footer>
-  
-
-
+  <script defer src="script.js" type="text/javascript"></script>
 </body>
 </html>
-
