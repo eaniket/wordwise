@@ -7,7 +7,7 @@
 </head>
 <body>
   <div class="page-wrapper">
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
       <div class="logo"><a href="#">Logo</a></div>
       <ul class="nav-links">
         <li><a href="#">Home</a></li>
@@ -33,28 +33,47 @@
     </div>
      -->
 
-    <div class="main content" id="main-content">
-      <h1>Welcome to your brain-friendly guide</h1>
-      <p class="subtitle">GRE Vocabulary story collection</p>
-      
-      <div class="cta-line">
-        <p>Embark on a Journey: <strong>Explore</strong> Captivating Stories or <strong>Craft</strong> Your Own Adventure!</p>
-        <a href="#explore-content">Explore stories</a>
-        <div class="cta-button-row">
-          <button type="button" class="btn btn-primary" id="explore-button">Explore stories</button>
-          <button type="button" class="btn btn-outline-secondary" id="create-button">Create a story</button>
+     <div id="body" class="main-body">
+      <div class="main content" id="main-content">
+        <h1>Welcome to your brain-friendly guide</h1>
+        <p class="subtitle">GRE Vocabulary story collection</p>
+        
+        <div class="cta-line">
+          <p>Embark on a Journey: <strong>Explore</strong> Captivating Stories or <strong>Craft</strong> Your Own Adventure!</p>
+          <a href="#explore-content">Explore stories</a>
+          <div class="cta-button-row">
+            <button type="button" class="btn btn-primary" id="explore-button"><a href="#explore-content">Explore stories</a></button>
+            <button type="button" class="btn btn-outline-secondary" id="create-button">Create a story</button>
+          </div>
         </div>
+        
       </div>
-    </div>
 
-    <div class="main explore-content" id="explore-content">
-      <div class="tile"><a href ="#main-content">Tile 1</a></div>
-      <div class="tile">Tile 2</div>
-      <div class="tile">Tile 3</div>
-      <div class="tile">Tile 4</div>
-      <div class="tile">Tile 5</div>
-      <div class="tile">Tile 6</div>
-    </div>
+      <div class="main container" id="explore-content">
+       
+        <div class="row">
+          <div class="tile col-md"><a href ="#main-content">Tile 1</a></div>
+          <div class="tile col-md">Tile 2</div>
+          <div class="tile col-md">Tile 3</div>
+        </div>
+        <div class="row">
+          <div class="tile col-md">Tile 4</div>
+          <div class="tile col-md">Tile 5</div>
+          <div class="tile col-md">Tile 6</div>
+        </div>
+        <div class="row">
+          <div class="tile col-md">Tile 7</div>
+          <div class="tile col-md">Tile 8</div>
+          <div class="tile col-md">Tile 9</div>
+        </div>
+        
+
+      </div>
+      
+     </div>
+
+
+    
 
     <footer>
       <ul class="social-links">
