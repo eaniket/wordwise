@@ -14,7 +14,7 @@ body {
 }
 
 .main-body {
-  height: 80%;
+  /* height: 80%; */
   overflow: auto;
 }
 
@@ -168,7 +168,7 @@ footer {
   /* top: 100%;
   left: 0; */
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: white;
   transition: top 0.5s ease-in-out;
 }
@@ -178,8 +178,14 @@ footer {
   text-decoration: none;
 }
 
-.badge-font-weight{
+/* .badge-font-weight{
   font-weight: 400 !important;
+}*/
+
+.story-heading{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 32px;
 }
 
 .row-container{
@@ -196,7 +202,7 @@ footer {
 }
 
 .grow-card {
-  width: 18rem;
+  width: 18rem !important;
   padding: 0;
   overflow: hidden; /* Hide overflowing content */
   transition: transform 0.3s ease; /* Add a smooth transition to transform property */
@@ -208,12 +214,61 @@ footer {
 
 #explore-content {
   padding: 64px;
-  height: 100vh;
+  padding-top: 48px;
 }
 
 .explore-content.active {
   display: flex;
 }
+
+.gpt-card {
+  position: relative;
+  width: 18rem !important;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0 !important;
+  height: 400px;
+  width: 300px;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  padding-top: 40px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8));
+  color: white;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: space-between;
+}
+
+.badge {
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 400 !important;
+}
+
 
 .inactive {
   display: none;
