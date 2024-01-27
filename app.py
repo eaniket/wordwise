@@ -9,10 +9,10 @@ from firebase_admin import credentials, firestore, initialize_app
 app = Flask(__name__)
 
 # Initialize Firestore DB
-cred = credentials.Certificate('key.json')
+cred = credentials.Certificate('config/firebaseKey.json')
 default_app = initialize_app(cred)
 db = firestore.client()
-todo_ref = db.collection('todos')
+todo_ref = db.collection('stories')
 
 @app.route('/add', methods=['POST'])
 def create():
