@@ -1,0 +1,16 @@
+{
+    "title": "A Good First Story Title",
+    "narrative": "The First Narrative\nTrying different forms of characters.",
+    "words": [
+        {
+            "word": "firstword",
+            "type": "noun",
+            "meaning": "firstword means the first word"
+        },
+        {
+            "word": "secondword",
+            "type": "verb",
+            "meaning": "secondword means the second word"
+        }
+    ]
+}
