@@ -12,7 +12,7 @@ app = Flask(__name__)
 cred = credentials.Certificate('config/firebaseKey.json')
 default_app = initialize_app(cred)
 db = firestore.client()
-todo_ref = db.collection('stories')
+story_ref = db.collection('stories')
 
 @app.route('/add', methods=['POST'])
 def create():
@@ -22,8 +22,23 @@ def create():
         e.g. json={'id': '1', 'title': 'Write a blog post'}
     """
     try:
-        id = request.json['id']
-        todo_ref.document(id).set(request.json)
+        story_id = story_ref.document().id
+        request.json["id"] = story_id
+        story_ref.document(story_id).set(request.json)
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+    
+@app.route('/batchAdd', methods=['POST'])
+def createBatch():
+    """
+        createBatch() : Add a list of document to Firestore collection with request body
+    """
+    try:
+        for story in request.json:
+            story_id = story_ref.document().id
+            story["id"] = story_id
+            story_ref.document(story_id).set(story)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -32,18 +47,18 @@ def create():
 def read():
     """
         read() : Fetches documents from Firestore collection as JSON
-        todo : Return document that matches query ID
-        all_todos : Return all documents
+        story : Return document that matches query ID
+        all_stories : Return all documents
     """
     try:
         # Check if ID was passed to URL query
-        todo_id = request.args.get('id')    
-        if todo_id:
-            todo = todo_ref.document(todo_id).get()
-            return jsonify(todo.to_dict()), 200
+        story_id = request.args.get('id')    
+        if story_id:
+            story = story_ref.document(story_id).get()
+            return jsonify(story.to_dict()), 200
         else:
-            all_todos = [doc.to_dict() for doc in todo_ref.stream()]
-            return jsonify(all_todos), 200
+            all_stories = [doc.to_dict() for doc in story_ref.stream()]
+            return jsonify(all_stories), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
@@ -56,7 +71,7 @@ def update():
     """
     try:
         id = request.json['id']
-        todo_ref.document(id).update(request.json)
+        story_ref.document(id).update(request.json)
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
@@ -68,22 +83,25 @@ def delete():
     """
     try:
         # Check for ID in URL query
-        todo_id = request.args.get('id')
-        todo_ref.document(todo_id).delete()
+        story_id = request.args.get('id')
+        story_ref.document(story_id).delete()
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
     
 @app.route('/', methods=['GET'])
-def home():
+def root():
     """
-        home() : Home page to show information
+        root() : Test to check server is up
     """
     return "Congratulations! You've reached the Wordwise server"
 
 
 @app.route('/homepage')
-def start():
+def home():
+    """
+        home() : Home page to show information
+    """
     return render_template('main.html')
 
     
