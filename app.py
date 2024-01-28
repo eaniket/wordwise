@@ -2,7 +2,7 @@
 
 # Required Imports
 import os
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from firebase_admin import credentials, firestore, initialize_app
 
 # Initialize Flask App
@@ -81,6 +81,12 @@ def home():
     """
     return "Congratulations! You've reached the Wordwise server"
 
+
+@app.route('/homepage')
+def start():
+    return render_template('main.html')
+
+    
 port = int(os.environ.get('PORT', 8080))
 
 if __name__ == '__main__':
