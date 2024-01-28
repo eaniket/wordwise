@@ -98,11 +98,28 @@ def root():
 
 
 @app.route('/homepage')
-def home():
-    """
-        home() : Home page to show information
-    """
-    return render_template('main.html')
+def start():
+    try:
+        # Check if ID was passed to URL query
+        all_todos = [doc.to_dict() for doc in story_ref.stream()]
+        return render_template('main.html', docs = all_todos)
+    except Exception as e:
+        return "Error! Please try again later!"
+
+
+@app.route('/read')
+def read_page():
+    doc_id = request.args.get("doc_id")
+    todo = story_ref.document(doc_id).get()
+    todo = todo.to_dict()
+    return render_template('read.html', doc_data = todo)
+
+
+@app.route('/alldocs')
+def load_docs():
+    all_todos = [doc.to_dict() for doc in story_ref.stream()]
+    final_docs = jsonify(all_todos)
+    return render_template('alldocs.html', all_docs = all_todos)
 
     
 port = int(os.environ.get('PORT', 8080))
