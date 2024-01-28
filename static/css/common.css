@@ -1,0 +1,7 @@
+.logo h1:hover {
+    background-color: #5FBDFF;
+    color: #EEF5FF;
+    width: max-content;
+    cursor: pointer;
+    border-radius: 5%;
+  }
