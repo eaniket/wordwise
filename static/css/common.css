@@ -1,7 +1,14 @@
 .logo h1:hover {
-    background-color: #5FBDFF;
-    color: #EEF5FF;
     width: max-content;
     cursor: pointer;
-    border-radius: 5%;
-  }
+}
+
+.gpt-card .card-content {
+  padding-left: 3rem;
+  padding-top: 6.5rem;
+  top: 0;
+}
+
+.gpt-card .card-content:hover {
+  cursor: pointer;
+}

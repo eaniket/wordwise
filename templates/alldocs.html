@@ -41,7 +41,7 @@
             
             {% for i in all_docs %}
                 <div class="gpt-card grow-card" onclick="triggerNav('{{i.id}}')">
-                  <img src="{{url_for('static', filename='assets/chapter_1.jpeg')}}" class="card-img" alt="Image">
+                  <img src="{{url_for('static', filename='assets/Book.jpg')}}" class="card-img" alt="Image">
                   <div class="card-content">
                     <h5 class="card-title">
                       {{i.title}}
@@ -61,11 +61,6 @@
      </div>
 
     <footer>
-      <ul class="social-links">
-        <li><a href="#"><img src="facebook.png" alt="Facebook"></a></li>
-        <li><a href="#"><img src="twitter.png" alt="Twitter"></a></li>
-        <li><a href="#"><img src="instagram.png" alt="Instagram"></a></li>
-      </ul>
     </footer>
   </div>
 

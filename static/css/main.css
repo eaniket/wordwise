@@ -81,6 +81,17 @@ html {
     color: #F8E559;
   }
   
+  .float-action{
+    position: fixed;
+    width: 3rem;
+    height: 3rem;
+    bottom: 0;
+    right: 0;
+    margin: 3rem 2rem;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+  }
+
   .nav-links {
     list-style: none;
     display: flex;
@@ -224,6 +235,7 @@ html {
   #explore-button a {
     color: #fff;
     text-decoration: none;
+    padding: 2rem 0px;
   }
   
   /* .badge-font-weight{
