@@ -13,6 +13,9 @@ cred = credentials.Certificate('config/firebaseKey.json')
 default_app = initialize_app(cred)
 db = firestore.client()
 story_ref = db.collection('stories')
+commons_ref = db.collection('commons')
+upvote_doc = commons_ref.document('upvote')
+
 
 @app.route('/add', methods=['POST'])
 def create():
@@ -28,11 +31,12 @@ def create():
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-    
+
+
 @app.route('/batchAdd', methods=['POST'])
-def createBatch():
+def create_batch():
     """
-        createBatch() : Add a list of document to Firestore collection with request body
+        create_batch() : Add a list of document to Firestore collection with request body
     """
     try:
         for story in request.json:
@@ -42,6 +46,7 @@ def createBatch():
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
+
 
 @app.route('/list', methods=['GET'])
 def read():
@@ -62,6 +67,7 @@ def read():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+
 @app.route('/update', methods=['POST', 'PUT'])
 def update():
     """
@@ -76,6 +82,7 @@ def update():
     except Exception as e:
         return f"An Error Occured: {e}"
 
+
 @app.route('/delete', methods=['GET', 'DELETE'])
 def delete():
     """
@@ -88,7 +95,8 @@ def delete():
         return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
-    
+
+
 @app.route('/', methods=['GET'])
 def root():
     """
@@ -97,29 +105,66 @@ def root():
     return "Congratulations! You've reached the Wordwise server"
 
 
+@app.route('/pollvote', methods=['GET'])
+def pollvote():
+    """
+        pollvote() : Poll existing upvote count from database
+    """
+    try:
+        upvote_count = upvote_doc.get()
+        return jsonify(upvote_count.to_dict()), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+@app.route('/upvote', methods=['GET'])
+def upvote():
+    """
+        upvote() : Increase upvote count of the website on database
+        Return updated upvote count from database
+    """
+    try:
+        existing_vote = upvote_doc.get().to_dict()
+        new_vote = existing_vote["upvote_count"] + 1
+        new_upvote = {"upvote_count": new_vote}
+        upvote_doc.update(new_upvote)
+        return jsonify(new_upvote), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
 @app.route('/homepage')
 def start():
+    """
+        start() : Navigate to homepage
+    """
     try:
         # Check if ID was passed to URL query
-        all_todos = [doc.to_dict() for doc in story_ref.stream()]
-        return render_template('main.html', docs = all_todos)
+        all_stories = [doc.to_dict() for doc in story_ref.stream()]
+        return render_template('main.html', docs = all_stories)
     except Exception as e:
         return "Error! Please try again later!"
 
 
 @app.route('/read')
 def read_page():
+    """
+        read_page() : Navigate to read single story page
+    """
     doc_id = request.args.get("doc_id")
-    todo = story_ref.document(doc_id).get()
-    todo = todo.to_dict()
-    return render_template('read.html', doc_data = todo)
+    story = story_ref.document(doc_id).get()
+    story = story.to_dict()
+    return render_template('read.html', doc_data = story)
 
 
 @app.route('/alldocs')
 def load_docs():
-    all_todos = [doc.to_dict() for doc in story_ref.stream()]
-    final_docs = jsonify(all_todos)
-    return render_template('alldocs.html', all_docs = all_todos)
+    """
+        load_docs() : Navigate to show all stories page
+    """
+    all_stories = [doc.to_dict() for doc in story_ref.stream()]
+    final_docs = jsonify(all_stories)
+    return render_template('alldocs.html', all_docs = all_stories)
 
     
 port = int(os.environ.get('PORT', 8080))
