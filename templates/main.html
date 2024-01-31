@@ -38,6 +38,7 @@
      <div id="body" class="main-body">
       <img class="bg-img" src="{{url_for('static', filename='assets/mainbg.jpg')}}" alt="">
       <div class="main content" id="main-content">
+        <button class="float-action btn btn-danger"><i class="fa-solid fa-heart"></i></button>
         <h1>Welcome to your brain-friendly guide</h1>
         <p class="subtitle">GRE Vocabulary story collection <i class="fa-solid fa-book-open"></i></p>
         
@@ -60,7 +61,7 @@
             
             {% for i in range(0, 5) %}
                 <div class="gpt-card grow-card" onclick="triggerNav('{{docs[i].id}}')">
-                  <img src="{{url_for('static', filename='assets/chapter_1.jpeg')}}" class="card-img" alt="Image">
+                  <img src="{{url_for('static', filename='assets/Book.jpg')}}" class="card-img" alt="Image">
                   <div class="card-content">
                     <h5 class="card-title">
                       {{docs[i].title}}
@@ -91,11 +92,6 @@
      </div>
 
     <footer>
-      <ul class="social-links">
-        <li><a href="#"><img src="facebook.png" alt="Facebook"></a></li>
-        <li><a href="#"><img src="twitter.png" alt="Twitter"></a></li>
-        <li><a href="#"><img src="instagram.png" alt="Instagram"></a></li>
-      </ul>
     </footer>
   </div>
 
