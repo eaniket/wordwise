@@ -121,7 +121,7 @@ def pollvote():
 def upvote():
     """
         upvote() : Increase upvote count of the website on database
-        Return updated upvote count from databse
+        Return updated upvote count from database
     """
     try:
         existing_vote = upvote_doc.get().to_dict()
