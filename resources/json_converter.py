@@ -23,6 +23,7 @@ with open(filename) as fh:
 			escapes = "".join([chr(char) for char in range(1, 32)])
 			title = story_parts[1].translate(str.maketrans("", "", escapes)).replace("\u201c", "").replace("\u201d", "").strip().strip("\"")
 			narrative = story_parts[2].strip()
+			narrative_word_count = len(narrative.replace("\n"," ").split())
 			words = []
 			word_data_list = story_parts[4].strip().split("\n")
 			for word_data in word_data_list:
@@ -41,6 +42,7 @@ with open(filename) as fh:
 
 			story["title"] = title
 			story["narrative"] = narrative
+			story["narrative_word_count"] = narrative_word_count
 			story["words"] = words
 
 			stories.append(story)

@@ -97,6 +97,19 @@ def delete():
         return f"An Error Occured: {e}"
 
 
+@app.route('/batchDelete', methods=['GET'])
+def delete_batch():
+    """
+        delete_batch() : Delete a list of document to Firestore collection
+    """
+    try:
+        for doc in story_ref.stream():
+            story_ref.document(doc.to_dict()["id"]).delete()
+        return jsonify({"success": True}), 200
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
 @app.route('/', methods=['GET'])
 def root():
     """
