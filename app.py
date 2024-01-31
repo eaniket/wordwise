@@ -30,9 +30,9 @@ def create():
         return f"An Error Occured: {e}"
     
 @app.route('/batchAdd', methods=['POST'])
-def createBatch():
+def create_batch():
     """
-        createBatch() : Add a list of document to Firestore collection with request body
+        create_batch() : Add a list of document to Firestore collection with request body
     """
     try:
         for story in request.json:
@@ -99,27 +99,36 @@ def root():
 
 @app.route('/homepage')
 def start():
+    """
+        start() : Navigate to homepage
+    """
     try:
         # Check if ID was passed to URL query
-        all_todos = [doc.to_dict() for doc in story_ref.stream()]
-        return render_template('main.html', docs = all_todos)
+        all_stories = [doc.to_dict() for doc in story_ref.stream()]
+        return render_template('main.html', docs = all_stories)
     except Exception as e:
         return "Error! Please try again later!"
 
 
 @app.route('/read')
 def read_page():
+    """
+        read_page() : Navigate to read single story page
+    """
     doc_id = request.args.get("doc_id")
-    todo = story_ref.document(doc_id).get()
-    todo = todo.to_dict()
-    return render_template('read.html', doc_data = todo)
+    story = story_ref.document(doc_id).get()
+    story = story.to_dict()
+    return render_template('read.html', doc_data = story)
 
 
 @app.route('/alldocs')
 def load_docs():
-    all_todos = [doc.to_dict() for doc in story_ref.stream()]
-    final_docs = jsonify(all_todos)
-    return render_template('alldocs.html', all_docs = all_todos)
+    """
+        load_docs() : Navigate to show all stories page
+    """
+    all_stories = [doc.to_dict() for doc in story_ref.stream()]
+    final_docs = jsonify(all_stories)
+    return render_template('alldocs.html', all_docs = all_stories)
 
     
 port = int(os.environ.get('PORT', 8080))
