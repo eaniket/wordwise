@@ -10,12 +10,40 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/read.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
   <script>
+    function calcTime(totalSeconds){
+      var mins = document.getElementById("mins");
+      var secs = document.getElementById("secs");
+      var minutes = Math.floor(totalSeconds/60);
+      var seconds = Math.floor(totalSeconds%60);
+      mins.innerHTML = minutes<10 ? "0"+minutes: minutes;
+      secs.innerHTML = seconds<10 ? "0"+seconds : seconds ;
+    }
+
+    function setTimer(){
+      var words = document.getElementById("doc-words");
+      words = parseInt(words.value);
+      var totalSeconds = words*2.5;
+      calcTime(totalSeconds);
+      setInterval(() => {
+        if(totalSeconds > 0){
+          totalSeconds = totalSeconds - 1;
+          calcTime(totalSeconds);
+        }
+        else{
+          var timer = document.getElementById("timer");
+          timer.classList.remove("btn-success");
+          timer.classList.add("btn-danger");
+          timer.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>'+" Time is over";
+          return;
+        }
+      }, 1000)
+    }
     function backToHome(){
         window.location.href="{{ url_for('start')}}"
     }
   </script>
 </head>
-<body>
+<body onload="setTimer()">
   <div class="page-wrapper">
     <nav class="" id="">
       <div class="logo">
@@ -30,9 +58,13 @@
      <div id="body" class="main-body">
       <div class="main content" id="main-content">
         <h1>{{ doc_data.title }}</h1>
+        <div class="float-action btn btn-success btn-lg" id="timer"><i class="fa-solid fa-stopwatch"></i>
+          </p><p id="mins"> 00 </p><p>:</p><p id="secs"> 00</p>
+        </div>
         <div class="narrative">
           {{ doc_data.narrative }}
         </div>
+        <input type="hidden" name="" id="doc-words" value="{{doc_data.narrative_word_count}}">
         <div class="words">
           <h3>References:</h3>
           {% for i in doc_data.words %}
