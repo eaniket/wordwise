@@ -2,7 +2,7 @@
 
 # Required Imports
 import os
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, redirect
 from firebase_admin import credentials, firestore, initialize_app
 
 # Initialize Flask App
@@ -141,7 +141,7 @@ def upvote():
         new_vote = existing_vote["upvote_count"] + 1
         new_upvote = {"upvote_count": new_vote}
         upvote_doc.update(new_upvote)
-        return jsonify(new_upvote), 200
+        return redirect('/homepage')
     except Exception as e:
         return f"An Error Occured: {e}"
 
