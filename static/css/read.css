@@ -370,3 +370,16 @@ html {
   html {
     scroll-behavior: smooth;
   }
+
+  
+  .float-action{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 3rem 2rem;
+    box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+  }
+
+  .float-action p{
+    display: inline;
+  }
