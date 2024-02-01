@@ -10,6 +10,14 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <script>
+    function initSetup(){
+      if(document.cookie == 'upvoteDone'){
+        var upvote = document.getElementById('upvote-btn');
+        upvote.classList.remove('btn-danger')
+        upvote.classList.add('btn-outline-danger')
+      }
+    }
+
     function triggerNav(param){
       window.location.href="{{ url_for('read_page', doc_id = 'DOC_ID') }}".replace("DOC_ID", param);
     }
@@ -19,11 +27,21 @@
     }
     
     function backToHome(){
-        window.location.href="{{ url_for('start')}}"
+      window.location.href="{{ url_for('start')}}"
+    }
+
+    function upvoteWordWise(){
+      if(document.cookie !== 'upvoteDone'){
+        document.cookie = 'upvoteDone';
+        var upvote = document.getElementById('upvote-btn');
+        upvote.classList.remove('btn-danger')
+        upvote.classList.add('btn-outline-danger')
+        window.location.href="{{ url_for('upvote')}}"
+      }
     }
   </script>
 </head>
-<body>
+<body onload="initSetup()">
   <div class="page-wrapper">
     <nav class="" id="">
       <div class="logo">
@@ -38,7 +56,7 @@
      <div id="body" class="main-body">
       <img class="bg-img" src="{{url_for('static', filename='assets/mainbg.jpg')}}" alt="">
       <div class="main content" id="main-content">
-        <button class="float-action btn btn-danger"><i class="fa-solid fa-heart"></i></button>
+        <button class="float-action btn btn-danger" id="upvote-btn" onclick="upvoteWordWise()"><i class="fa-solid fa-heart"></i></button>
         <h1>Welcome to your brain-friendly guide</h1>
         <p class="subtitle">GRE Vocabulary story collection <i class="fa-solid fa-book-open"></i></p>
         
