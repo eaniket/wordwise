@@ -154,7 +154,8 @@ def start():
     try:
         # Check if ID was passed to URL query
         all_stories = [doc.to_dict() for doc in story_ref.stream()]
-        return render_template('main.html', docs = all_stories)
+        upvote_count = upvote_doc.get()
+        return render_template('main.html', docs = all_stories, upvote = upvote_count.to_dict())
     except Exception as e:
         return "Error! Please try again later!"
 

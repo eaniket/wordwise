@@ -3,6 +3,7 @@
 <head>
   <title>WordWise</title>
   <script src="https://kit.fontawesome.com/fde51b9894.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +20,7 @@
       secs.innerHTML = seconds<10 ? "0"+seconds : seconds ;
     }
 
-    function setTimer(){
+    function triggerTimer(){
       var words = document.getElementById("doc-words");
       words = parseInt(words.value);
       var totalSeconds = words*2.5;
@@ -38,6 +39,12 @@
         }
       }, 1000)
     }
+
+    function setTimer(){
+      const myModal = new bootstrap.Modal('#staticBackdrop');
+      myModal.show();
+    }
+
     function backToHome(){
         window.location.href="{{ url_for('start')}}"
     }
@@ -56,6 +63,19 @@
     </nav>
 
      <div id="body" class="main-body">
+      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Timer will start <i class="fa-solid fa-hourglass-end"></i></h1>
+              <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="triggerTimer()"></button> -->
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="triggerTimer()">Understood</button>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="main content" id="main-content">
         <h1>{{ doc_data.title }}</h1>
         <div class="float-action btn btn-success btn-lg" id="timer"><i class="fa-solid fa-stopwatch"></i>
