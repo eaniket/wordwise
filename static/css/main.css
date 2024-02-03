@@ -92,6 +92,16 @@ html {
     box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
   }
 
+  .main-footer{
+    color: #06f;
+    font-family: 'Pacifico', cursive;
+  }
+
+  .main-footer h5{
+    font-size: x-large;
+    font-weight: bold;
+  }
+
   .nav-links {
     list-style: none;
     display: flex;
