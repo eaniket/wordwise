@@ -12,6 +12,7 @@ app = Flask(__name__)
 cred = credentials.Certificate('config/firebaseKey.json')
 default_app = initialize_app(cred)
 db = firestore.client()
+subscribers_ref = db.collection('subscribers')
 story_ref = db.collection('stories')
 commons_ref = db.collection('commons')
 upvote_doc = commons_ref.document('upvote')
@@ -142,6 +143,19 @@ def upvote():
         new_upvote = {"upvote_count": new_vote}
         upvote_doc.update(new_upvote)
         return redirect('/homepage')
+    except Exception as e:
+        return f"An Error Occured: {e}"
+
+
+@app.route('/addSubscriber', methods=['POST'])
+def add_subscriber():
+    """
+        add_subscriber() : Add subscriber to Firestore collection with request body
+        json = { 'name': 'John Doe', 'email': 'john.doe@xmail.com'}
+    """
+    try:
+        subscribers_ref.document(request.json["email"]).set(request.json)
+        return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 
