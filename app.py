@@ -142,7 +142,7 @@ def upvote():
         new_vote = existing_vote["upvote_count"] + 1
         new_upvote = {"upvote_count": new_vote}
         upvote_doc.update(new_upvote)
-        return redirect('/homepage')
+        return jsonify({"success": True}), 200
     except Exception as e:
         return f"An Error Occured: {e}"
 

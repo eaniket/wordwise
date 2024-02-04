@@ -81,6 +81,10 @@ html {
     color: #F8E559;
   }
   
+  .hide-alert{
+    display: none;
+  }
+
   .float-action{
     position: fixed;
     width: 3rem;
@@ -144,7 +148,7 @@ html {
 
   .bg-img{
     position: absolute;
-    opacity: 0.15;
+    opacity: 0;
     z-index: -1;
     left: 0;
     right: 0;

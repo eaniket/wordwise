@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
   <script>
+    var xhr = new XMLHttpRequest();
     function initSetup(){
       if(document.cookie == 'upvoteDone'){
         var upvote = document.getElementById('upvote-btn');
@@ -37,8 +38,45 @@
         var upvote = document.getElementById('upvote-btn');
         upvote.classList.remove('btn-danger')
         upvote.classList.add('btn-outline-danger')
-        window.location.href="{{ url_for('upvote')}}"
+        xhr.open("GET", 'http://localhost:8080/upvote', true);
+        xhr.send();
       }
+    }
+
+    function subscribeToApp(){
+      var email = document.getElementById("inputEmail");
+      var name = document.getElementById("inputName");
+      var inputAlert = document.getElementById("input-error");
+      var inputSuccess = document.getElementById("input-success");
+      var submitSub = document.getElementById("submitSub");
+      var reEmail = /^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/;
+      var reName = /^[A-Za-z\s]+$/;
+
+      if(email.value === "" || name.value === "" || !email.value.match(reEmail) || !name.value.match(reName)){
+        inputAlert.classList.remove("hide-alert");
+      }
+      else{
+        name.style.display = "none";
+        email.style.display = "none";
+        submitSub.style.display = "none";
+        inputSuccess.classList.remove("hide-alert");
+        xhr.open("POST", 'http://localhost:8080/addSubscriber', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+          email: email.value,
+          name: name.value
+        }));
+      }
+
+    }
+
+    function resetAlert(){
+      var inputAlert = document.getElementById("input-error");
+      var email = document.getElementById("inputEmail");
+      var name = document.getElementById("inputName");
+      inputAlert.classList.add("hide-alert"); 
+      email.value = "";
+      name.value = "";
     }
   </script>
 </head>
@@ -72,15 +110,21 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h1 class="modal-title fs-5" id="staticBackdropLabel">Feature coming soon <i class="fa-regular fa-face-laugh-beam"></i></h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <h5>Subscribe to get notified when the feature is up</h3>
-                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email address">
+                    <div class="alert alert-danger hide-alert" id="input-error" role="alert">
+                      <i class="fa-solid fa-triangle-exclamation"></i> Enter Name and Email in correct format
+                    </div>
+                    <div class="alert alert-success hide-alert" id="input-success" role="alert">
+                      <i class="fa-solid fa-triangle-exclamation"></i> Thanks for your submission!
+                    </div>
+                  <input type="email" class="form-control" id="inputName" aria-describedby="nameHelp" placeholder="Enter your name">
+                  <br><input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email address">
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Submit</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="resetAlert()">Close</button>
+                  <button type="button" class="btn btn-primary" id="submitSub" onclick="subscribeToApp()">Submit</button>
                 </div>
               </div>
             </div>
