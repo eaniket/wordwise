@@ -1,0 +1,20 @@
+.App{
+  background-color: #323743;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.wordwise-dashboard{
+  .header{
+    color: #FFFFFF;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
