@@ -1,9 +1,11 @@
+import { WordWiseHome } from "./homepage/WordWiseHome";
+import { WordWiseNav } from "./navbar/WordWiseNav";
+
 export const Dashboard = () => {
     return(
         <div className="container wordwise-dashboard">
-            <div className="header">
-                <s>Cram</s> Enjoy the GRE vocab
-            </div>
+            <WordWiseNav/>
+            <WordWiseHome/>
         </div>
     )
 }
