@@ -6,6 +6,9 @@
 }
 
 .wordwise-dashboard{
+  .row{
+    margin-left: 1rem;
+  }
   .header{
     margin-top: 10rem;
     width: 26rem;
@@ -13,6 +16,10 @@
     font-size: 3rem;
     font-weight: 700;
     line-height: 3rem;
+    @media (max-width: 480px) {
+      margin-top: 2rem;
+      width: 20rem;
+    }
   }
   .sub-header{
     margin-top: 2rem;
@@ -20,11 +27,21 @@
     font-size: 1rem;
     line-height: 1.5rem;
     width: 26rem;
+    @media (max-width: 480px) {
+      width: 20rem;
+    }
   }
   .dashboard-img{
     img{
-      width: 45rem;
+      width: 40rem;
+      margin: 1rem;
       border-radius: 20.3125rem;
+      text-align: center;
+      @media (max-width: 480px) {
+        margin: 1rem auto;
+        text-align: center;
+        width: 20rem;
+      }
     }
   }
   .action-btn{
