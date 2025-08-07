@@ -24,7 +24,7 @@ WordWise is a web application designed to help users, especially GRE aspirants, 
 - Bootstrap and FontAwesome for UI/UX
 
 ### Backend
-- Python (likely Flask, based on Jinja templating in HTML and use of `url_for`)
+- Python (Flask)
 - HTML templates in `templates/` for main pages, story lists, and reading views
 - Static assets (images, CSS, JS) in `static/`
 
