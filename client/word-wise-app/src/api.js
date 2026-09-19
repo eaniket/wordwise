@@ -1,5 +1,11 @@
+const API_BASE_URL = process.env.REACT_APP_API_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://wordwise-ivory.vercel.app'
+        : ''
+);
+
 const request = async (path, options = {}) => {
-    const response = await fetch(path, {
+    const response = await fetch(`${API_BASE_URL}${path}`, {
         headers: { 'Content-Type': 'application/json', ...(options.headers || {}) },
         ...options,
     });

@@ -11,6 +11,18 @@ from firebase_admin import credentials, firestore, initialize_app
 # Initialize Flask App
 app = Flask(__name__)
 
+
+@app.after_request
+def add_cors_headers(response):
+    """Allow the React client to call the deployed Flask API."""
+    origin = request.headers.get('Origin', '')
+    if origin == 'http://localhost:3000' or origin.endswith('.vercel.app'):
+        response.headers['Access-Control-Allow-Origin'] = origin
+        response.headers['Vary'] = 'Origin'
+        response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+        response.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS'
+    return response
+
 # Initialize Firestore DB
 cred = credentials.Certificate('config/firebaseKey.json')
 default_app = initialize_app(cred)

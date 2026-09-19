@@ -9,18 +9,18 @@ import './App.css';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/read/:storyId" element={<Reader />} />
-          <Route path="/test" element={<VocabularyTest />} />
-          <Route path="/test/:storyId" element={<VocabularyTest />} />
-          <Route path="/create" element={<CreateStory />} />
-        </Routes>
-      </div>
-    </BrowserRouter>
+      <BrowserRouter>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/read/:storyId" element={<Reader />} />
+            <Route path="/test" element={<VocabularyTest />} />
+            <Route path="/test/:storyId" element={<VocabularyTest />} />
+            <Route path="/create" element={<CreateStory />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
   );
 }
 
