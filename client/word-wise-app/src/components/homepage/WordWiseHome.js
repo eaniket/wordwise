@@ -9,7 +9,7 @@ export const WordWiseHome = () => {
                     <s>Cram</s> Enjoy learning new words
                 </div>
                 <div className="sub-header">
-                    Take the friction out of mugging up GRE words by using your 
+                    Take the friction out of mugging up words by using your 
                     <strong> brain-friendly</strong> guide <strong>WordWise</strong>. 
                     Learn words via engaging stories along with <strong>timed-practice </strong> 
                     for reading comprehension.
