@@ -1,6 +1,6 @@
 # WordWise
 
-WordWise is a GRE vocabulary learning app that presents vocabulary in short stories and supports timed reading practice. The repository currently contains a working Flask/Jinja application and a separate React dashboard prototype.
+WordWise is a vocabulary learning app that presents vocabulary in short stories and supports timed reading practice. The repository currently contains a working Flask/Jinja application and a separate React dashboard prototype.
 
 ## Current application
 

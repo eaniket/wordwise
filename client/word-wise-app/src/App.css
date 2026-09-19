@@ -48,6 +48,9 @@ body,
 }
 
 .wordwise-dashboard{
+  .row{
+    margin-left: 1rem;
+  }
   .header{
     margin-top: 10rem;
     width: 26rem;
@@ -55,6 +58,10 @@ body,
     font-size: 3rem;
     font-weight: 700;
     line-height: 3rem;
+    @media (max-width: 480px) {
+      margin-top: 2rem;
+      width: 20rem;
+    }
   }
   .sub-header{
     margin-top: 2rem;
@@ -62,6 +69,9 @@ body,
     font-size: 1rem;
     line-height: 1.5rem;
     width: 26rem;
+    @media (max-width: 480px) {
+      width: 20rem;
+    }
   }
   .dashboard-img{
     display: flex;
