@@ -4,6 +4,7 @@ import { Explore } from './components/Explore';
 import { Reader } from './components/Reader';
 import { VocabularyTest } from './components/VocabularyTest';
 import { CreateStory } from './components/CreateStory';
+import { Analytics } from '@vercel/analytics/react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -19,6 +20,7 @@ function App() {
             <Route path="/test/:storyId" element={<VocabularyTest />} />
             <Route path="/create" element={<CreateStory />} />
           </Routes>
+          <Analytics />
         </div>
       </BrowserRouter>
   );
