@@ -1,0 +1,10 @@
+client/word-wise-app/node_modules
+client/word-wise-app/package-lock.json
+wordwise-env
+.DS_Store
+.env
+config/firebaseKey.json
+dev_skill.md
+research.md
+settings.json
+__pycache__

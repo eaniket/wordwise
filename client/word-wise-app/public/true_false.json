@@ -1,0 +1,14 @@
+{
+  "sentences": [
+    {"word": "pugnacious", "sentence": "The pugnacious puppy barked at every dog in the park.", "answer": "correct"},
+    {"word": "profligate", "sentence": "Her profligate spending quickly emptied her savings account.", "answer": "correct"},
+    {"word": "dereliction", "sentence": "The abandoned factory was a clear example of dereliction.", "answer": "correct"},
+    {"word": "extol", "sentence": "The critic extolled the restaurant's innovative cuisine.", "answer": "correct"},
+    {"word": "burnish", "sentence": "The jeweler used a soft cloth to burnish the silver bracelet.", "answer": "correct"},
+    {"word": "impending", "sentence": "Dark clouds warned of an impending storm.", "answer": "correct"},
+    {"word": "stigmatize", "sentence": "The campaign aimed to stigmatize people who made mistakes.", "answer": "correct"},
+    {"word": "delineate", "sentence": "The architect used a ruler to delineate the boundaries of each room.", "answer": "correct"},
+    {"word": "refractory", "sentence": "The refractory child refused to follow any of the teacher's instructions.", "answer": "correct"},
+    {"word": "disinter", "sentence": "Archaeologists received permission to disinter the ancient remains.", "answer": "correct"}
+  ]
+}

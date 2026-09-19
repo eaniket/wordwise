@@ -1,29 +1,48 @@
+import { Link } from 'react-router-dom';
 import wordWiseNavLogo from './Word-Logo.png';
 
 export const WordWiseNav = () => {
-    return(
+    return (
         <div className="wordwise-nav">
-            <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#"><img src={wordWiseNavLogo}></img> ordWise</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            <nav className="navbar navbar-expand-lg navbar-light">
+                <div className="container-fluid">
+                    <Link className="navbar-brand d-flex align-items-center" to="/">
+                        <img 
+                            src={wordWiseNavLogo} 
+                            alt="WordWise Logo" 
+                            className="nav-logo"
+                            height="30"
+                        />
+                        <span className="ms-2">WordWise</span>
+                    </Link>
+                    
+                    <button 
+                        className="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Explore</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Feedback</a>
-                        </li>
-                    </ul>
+                    
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav ms-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/">Home</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/explore">Explore</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/feedback">Feedback</Link>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </nav>
         </div>
-    )
+    );
 }

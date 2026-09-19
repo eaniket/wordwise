@@ -2,6 +2,9 @@
 
 # Required Imports
 import os
+import json
+import random
+from uuid import uuid4
 from flask import Flask, request, jsonify, render_template, redirect
 from firebase_admin import credentials, firestore, initialize_app
 
@@ -16,6 +19,39 @@ subscribers_ref = db.collection('subscribers')
 story_ref = db.collection('stories')
 commons_ref = db.collection('commons')
 upvote_doc = commons_ref.document('upvote')
+LOCAL_STORIES_PATH = os.path.join(os.path.dirname(__file__), 'resources', 'localStories.json')
+
+
+def _read_local_stories():
+    stories = []
+    changed = False
+    if os.path.exists(LOCAL_STORIES_PATH):
+        with open(LOCAL_STORIES_PATH, 'r', encoding='utf-8') as local_file:
+            stories = json.load(local_file)
+
+    with open(os.path.join(os.path.dirname(__file__), 'resources', 'parsedData.json'), 'r', encoding='utf-8') as source_file:
+        source_stories = json.load(source_file)
+
+    existing_ids = {story.get('id') for story in stories}
+    for index, story in enumerate(source_stories, start=1):
+        story = dict(story)
+        story['id'] = story.get('id') or f'local-{index}'
+        if story['id'] not in existing_ids:
+            stories.append(story)
+            changed = True
+
+    for story in stories:
+        if story.get('votes', 0) <= 0:
+            story['votes'] = random.randint(20, 50)
+            changed = True
+    if changed:
+        _write_local_stories(stories)
+    return sorted(stories, key=lambda story: story.get('votes', 0), reverse=True)
+
+
+def _write_local_stories(stories):
+    with open(LOCAL_STORIES_PATH, 'w', encoding='utf-8') as local_file:
+        json.dump(stories, local_file, indent=2)
 
 
 @app.route('/add', methods=['POST'])
@@ -27,11 +63,17 @@ def create():
     """
     try:
         story_id = story_ref.document().id
-        request.json["id"] = story_id
-        story_ref.document(story_id).set(request.json)
-        return jsonify({"success": True}), 200
+        story = request.get_json(silent=True) or {}
+        story["id"] = story_id
+        story_ref.document(story_id).set(story)
+        return jsonify(story), 201
     except Exception as e:
-        return f"An Error Occured: {e}"
+        story = request.get_json(silent=True) or {}
+        story['id'] = f'local-{uuid4().hex[:12]}'
+        stories = _read_local_stories()
+        stories.append(story)
+        _write_local_stories(stories)
+        return jsonify(story), 201
 
 
 @app.route('/batchAdd', methods=['POST'])
@@ -61,12 +103,65 @@ def read():
         story_id = request.args.get('id')    
         if story_id:
             story = story_ref.document(story_id).get()
-            return jsonify(story.to_dict()), 200
+            story_data = story.to_dict()
+            if 'votes' not in story_data:
+                story_data['votes'] = random.randint(20, 50)
+                story_ref.document(story_id).set({'votes': story_data['votes']}, merge=True)
+            return jsonify(story_data), 200
         else:
-            all_stories = [doc.to_dict() for doc in story_ref.stream()]
-            return jsonify(all_stories), 200
+            all_stories = []
+            for doc in story_ref.stream():
+                story_data = doc.to_dict()
+                if story_data.get('votes', 0) <= 0:
+                    story_data['votes'] = random.randint(20, 50)
+                    story_ref.document(doc.id).set({'votes': story_data['votes']}, merge=True)
+                all_stories.append(story_data)
+            return jsonify(sorted(all_stories, key=lambda story: story.get('votes', 0), reverse=True)), 200
     except Exception as e:
-        return f"An Error Occured: {e}"
+        stories = _read_local_stories()
+        story_id = request.args.get('id')
+        if story_id:
+            story = next((item for item in stories if item.get('id') == story_id), None)
+            if story is None:
+                return jsonify({'error': 'Story not found'}), 404
+            return jsonify(story), 200
+        return jsonify(stories), 200
+
+
+@app.route('/true-false', methods=['GET'])
+def true_false_questions():
+    """Return the authored True/False vocabulary questions."""
+    questions_path = os.path.join(os.path.dirname(__file__), 'resources', 'true_false.json')
+    try:
+        with open(questions_path, 'r', encoding='utf-8') as questions_file:
+            return jsonify(json.load(questions_file)), 200
+    except (OSError, json.JSONDecodeError) as error:
+        return jsonify({'error': f'Unable to load True/False questions: {error}'}), 500
+
+
+@app.route('/vote', methods=['POST'])
+def vote_story():
+    """Increment and return the vote count for one story."""
+    story_id = request.args.get('id')
+    if not story_id:
+        return jsonify({'error': 'Story id is required'}), 400
+
+    try:
+        story_document = story_ref.document(story_id)
+        story_snapshot = story_document.get()
+        if not story_snapshot.exists:
+            return jsonify({'error': 'Story not found'}), 404
+        story_document.update({'votes': firestore.Increment(1)})
+        updated_story = story_document.get().to_dict()
+        return jsonify({'votes': updated_story.get('votes', 1)}), 200
+    except Exception:
+        stories = _read_local_stories()
+        story = next((item for item in stories if item.get('id') == story_id), None)
+        if story is None:
+            return jsonify({'error': 'Story not found'}), 404
+        story['votes'] = story.get('votes', 0) + 1
+        _write_local_stories(stories)
+        return jsonify({'votes': story['votes']}), 200
 
 
 @app.route('/update', methods=['POST', 'PUT'])
